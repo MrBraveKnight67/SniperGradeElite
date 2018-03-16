@@ -6,16 +6,14 @@ import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import main.GamePanel;
+
 public class MenuState extends GameState {
 	
 	private BufferedImage bg;
 	
 	private int currentChoice = 0;
-	private String[] options = {
-		"Start",
-		"Help",
-		"Quit"
-	};
+	private String[] options = {"Start", "Help", "Quit"};
 	
 	private Color titleColor;
 	private Font titleFont;
@@ -28,7 +26,7 @@ public class MenuState extends GameState {
 		
 		try {
 			
-			bg = ImageIO.read(getClass().getResourceAsStream("/Backgrounds/menubg.gif"));
+			bg = ImageIO.read(getClass().getResourceAsStream("/background.gif"));
 			
 			titleColor = new Color(128, 0, 0);
 			titleFont = new Font(
@@ -52,12 +50,12 @@ public class MenuState extends GameState {
 	public void draw(Graphics2D g) {
 		
 		// draw bg
-		bg.draw(g);
+		g.drawImage(bg, GamePanel.WIDTH, GamePanel.HEIGHT, null);
 		
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("Dragon Tale", 80, 70);
+		g.drawString("Sniper Grade Elite", 80, 70);
 		
 		// draw menu options
 		g.setFont(font);
@@ -78,7 +76,7 @@ public class MenuState extends GameState {
 			gsm.setState(GameStateManager.LEVEL1STATE);
 		}
 		if(currentChoice == 1) {
-			// help
+			options[1] = "u get no help in school lol";
 		}
 		if(currentChoice == 2) {
 			System.exit(0);

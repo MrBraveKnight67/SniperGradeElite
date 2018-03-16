@@ -1,6 +1,6 @@
 package main;
 
-public abstract class entity {
+public abstract class Entity {
 	public double posX;
 	public double posY;
 	public double radius;
