@@ -26,7 +26,7 @@ public class MenuState extends GameState {
 		
 		try {
 			
-			bg = ImageIO.read(getClass().getResourceAsStream("/background.gif"));
+			bg = ImageIO.read(getClass().getResourceAsStream("/foothillBackground.jpg"));
 			
 			titleColor = new Color(128, 0, 0);
 			titleFont = new Font(
@@ -50,18 +50,18 @@ public class MenuState extends GameState {
 	public void draw(Graphics2D g) {
 		
 		// draw bg
-		g.drawImage(bg, GamePanel.WIDTH, GamePanel.HEIGHT, null);
+		g.drawImage(bg, 0, 0, null);
 		
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("Sniper Grade Elite", 80, 70);
+		g.drawString("Sniper Grade Elite", 50, 70);
 		
 		// draw menu options
 		g.setFont(font);
 		for(int i = 0; i < options.length; i++) {
 			if(i == currentChoice) {
-				g.setColor(Color.BLACK);
+				g.setColor(Color.GREEN);
 			}
 			else {
 				g.setColor(Color.RED);
@@ -73,7 +73,7 @@ public class MenuState extends GameState {
 	
 	private void select() {
 		if(currentChoice == 0) {
-			gsm.setState(GameStateManager.LEVEL1STATE);
+			//gsm.setState(GameStateManager.LEVEL1STATE);
 		}
 		if(currentChoice == 1) {
 			options[1] = "u get no help in school lol";
