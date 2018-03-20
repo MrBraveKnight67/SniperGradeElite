@@ -73,7 +73,7 @@ public class MenuState extends GameState {
 	
 	private void select() {
 		if(currentChoice == 0) {
-			//gsm.setState(GameStateManager.LEVEL1STATE);
+			gsm.setState(GameStateManager.LEVEL1STATE);
 		}
 		if(currentChoice == 1) {
 			options[1] = "u get no help in school lol";

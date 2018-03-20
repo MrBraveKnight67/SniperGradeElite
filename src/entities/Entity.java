@@ -21,6 +21,11 @@ public abstract class Entity {
 		posX = x;
 		posY = y;
 	}
+	
+	public void move(int dx, int dy) {
+		posX += dx;
+		posY += dy;
+	}
 
 	public void draw(java.awt.Graphics2D g) {
 		g.drawImage(img, (int) posX, (int) posY, null);
