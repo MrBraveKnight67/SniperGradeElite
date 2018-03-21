@@ -1,12 +1,9 @@
 package gameState;
 
 import java.awt.*;
-import java.awt.image.*;
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-
-import main.GamePanel;
 
 public class MenuState extends GameState {
 	
@@ -73,7 +70,7 @@ public class MenuState extends GameState {
 	
 	private void select() {
 		if(currentChoice == 0) {
-			gsm.setState(GameStateManager.LEVEL1STATE);
+			goToNext();
 		}
 		if(currentChoice == 1) {
 			options[1] = "u get no help in school lol";
@@ -81,6 +78,10 @@ public class MenuState extends GameState {
 		if(currentChoice == 2) {
 			System.exit(0);
 		}
+	}
+	
+	public void goToNext() {
+		gsm.setState(GameStateManager.LEVEL1STATE);
 	}
 	
 	public void keyPressed(int k) {

@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 public class Grade extends Entity {
 	int val;
 	int speed;
-	boolean captured;
 	Random rand;
 
 	public Grade(int x, int y, int val, int speed) {
@@ -17,18 +16,17 @@ public class Grade extends Entity {
 		radius = 10;
 		this.val = val;
 		this.speed = speed;
-		captured = false;
-		radius = 10;
+		needed = true;
 		try {
 			if (val == 4) {
 				img = ImageIO.read(getClass().getResourceAsStream("/gradeA.png"));
-			}else if (val == 3) {
+			} else if (val == 3) {
 				img = ImageIO.read(getClass().getResourceAsStream("/gradeB.jpg"));
-			}else if (val == 2) {
+			} else if (val == 2) {
 				img = ImageIO.read(getClass().getResourceAsStream("/gradeC.png"));
-			}else if (val == 1) {
+			} else if (val == 1) {
 				img = ImageIO.read(getClass().getResourceAsStream("/gradeD.png"));
-			}else if (val == 0) {
+			} else if (val == 0) {
 				img = ImageIO.read(getClass().getResourceAsStream("/gradeF.png"));
 			}
 		} catch (IOException e) {
@@ -43,7 +41,7 @@ public class Grade extends Entity {
 			player.gpa[2]++;
 			player.gpa[0] = player.gpa[1] / player.gpa[2];
 			System.out.println("" + player.gpa[0]);
-			captured = true;
+			needed = false;
 		}
 		int xDir = rand.nextInt(10);
 		int yDir = rand.nextInt(10);
@@ -60,7 +58,10 @@ public class Grade extends Entity {
 		}
 	}
 
-	public boolean isCaptured() {
-		return captured;
+	public void update(Entity player) {
+	}
+
+	public boolean updateB(Entity player) {
+		return false;
 	}
 }

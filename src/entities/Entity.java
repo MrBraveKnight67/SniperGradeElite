@@ -7,6 +7,7 @@ public abstract class Entity {
 	public double posY;
 	public int radius;
 	public BufferedImage img;
+	public boolean needed;
 
 	public boolean collides(double tX, double tY, int tRadius) {
 		double diffX = Math.abs(tX - posX);
@@ -42,5 +43,9 @@ public abstract class Entity {
 	public void draw(java.awt.Graphics2D g) {
 		g.drawImage(img, (int) (posX - radius), (int) (posY - radius), null);
 	}
+	
+	public abstract void update(Entity player);
+	
+	public abstract boolean updateB(Entity player);
 
 }

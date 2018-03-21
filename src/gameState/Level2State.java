@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class Level1State extends GameState {
+public class Level2State extends GameState {
 
 	private BufferedImage bg;
 	private Player player;
@@ -18,7 +18,7 @@ public class Level1State extends GameState {
 	private int gSpeed = 5;
 	private int pSpeed = 10;
 
-	public Level1State(GameStateManager gsm) {
+	public Level2State(GameStateManager gsm) {
 		this.gsm = gsm;
 		init();
 	}
