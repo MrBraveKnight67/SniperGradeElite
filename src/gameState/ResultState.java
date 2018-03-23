@@ -9,20 +9,23 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import entities.Player;
+import main.Game;
 
 public class ResultState extends GameState {
 
 	private BufferedImage bg;
 	private Player player;
+	private Player player2;
 
 	private Color titleColor;
 	private Font titleFont;
 	private Font font;
 
-	public ResultState(GameStateManager gsm, Player player) {
+	public ResultState(GameStateManager gsm, Player player, Player player2) {
 
 		this.gsm = gsm;
 		this.player = player;
+		this.player2 = player2;
 
 		try {
 			bg = ImageIO.read(getClass().getResourceAsStream("/Backgrounds/foothillBackground.jpg"));
@@ -54,11 +57,13 @@ public class ResultState extends GameState {
 		//draw others
 		g.setFont(font);
 		g.setColor(Color.CYAN);
-		g.drawString("Your GPA was " + String.format("%.2f", player.gpa[0]), 110, 70);
-		g.drawString("Thus, your rank is...", 110, 90);
+		g.drawString("Your GPA's were " + String.format("%.2f", player.gpa[0]) + " and "
+				+ String.format("%.2f", player2.gpa[0]), 110, 70);
+		g.drawString("Thus, your ranks are...", 110, 90);
 		g.setFont(titleFont);
 		g.setColor(Color.ORANGE);
-		g.drawString(getRank(player.gpa[0]), 30, 130);
+		g.drawString(getRank(player.gpa[0]), 30, 115);
+		g.drawString(getRank(player2.gpa[0]), 30, 145);
 		g.setFont(font);
 		g.setColor(Color.CYAN);
 		g.drawString("Press Q to quit.", 120, 160);
@@ -66,7 +71,11 @@ public class ResultState extends GameState {
 	}
 	
 	private String getRank(double gpa) {
-		return gsm.getRanks((int) (gpa * 2));
+		int i = (int) (gpa*3);
+		if (i == 12) {
+			i--;
+		}
+		return Game.ranks[i];
 	}
 
 	public void goToNext() {

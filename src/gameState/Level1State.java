@@ -12,12 +12,15 @@ public class Level1State extends GameState {
 
 	private BufferedImage bg;
 	private Player player;
+	private Player player2;
 	private HUD hud;
+	private HUD hud2;
 	private ArrayList<Grade> grades;
 	private ArrayList<Explosion> explosions;
 	private Door door;
 	private int gSpeed = 5;
 	private int pSpeed = 10;
+	private int pSpeed2 = 15;
 
 	public Level1State(GameStateManager gsm) {
 		this.gsm = gsm;
@@ -27,13 +30,15 @@ public class Level1State extends GameState {
 	public void init() {
 
 		try {
-			bg = ImageIO.read(getClass().getResourceAsStream("/Backgrounds/englishBackground.jpg"));
+			bg = ImageIO.read(getClass().getResourceAsStream("/Backgrounds/compsciBackground.JPG"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		player = new Player(15, 15, pSpeed);
+		player = new Player(15, 15, pSpeed, 1);
+		player2 = new Player(15, 15, pSpeed2, 2);
 		hud = new HUD(player, 15, 15);
+		hud2 = new HUD(player2, 15, 213);
 		populateGrades();
 		explosions = new ArrayList<Explosion>();
 	}
@@ -54,7 +59,7 @@ public class Level1State extends GameState {
 	public void update() {
 
 		// check for door
-		if (grades.size() <= 3 && player.gpa[0] != 0) {
+		if (grades.size() <= 3 && (player.gpa[0] != 0 || player2.gpa[0] != 0)) {
 			if (door == null) {
 				door = new Door(310, 230);
 			} else if (door.updateB(player)) {
@@ -67,6 +72,7 @@ public class Level1State extends GameState {
 		for (int i = 0; i < grades.size(); i++) {
 			Grade g = grades.get(i);
 			g.update(player);
+			g.update(player2);
 			if (!g.needed) {
 				grades.remove(i);
 				i--;
@@ -94,7 +100,9 @@ public class Level1State extends GameState {
 		}
 
 		player.draw(g);
-		hud.draw(g, gsm);
+		player2.draw(g);
+		hud.draw(g);
+		hud2.draw(g);
 
 		// draw enemies & explosions
 		for (int i = 0; i < grades.size(); i++) {
@@ -107,7 +115,7 @@ public class Level1State extends GameState {
 	}
 
 	public void goToNext() {
-		gsm.setState(GameStateManager.LEVEL2STATE, player);
+		gsm.setState(GameStateManager.LEVEL2STATE, player, player2);
 	}
 
 	public void keyPressed(int k) {
@@ -125,6 +133,18 @@ public class Level1State extends GameState {
 		}
 		if (k == KeyEvent.VK_Q) {
 			System.exit(0);
+		}
+		if (k == KeyEvent.VK_A) {
+			player2.move(-player.speed, 0);
+		}
+		if (k == KeyEvent.VK_D) {
+			player2.move(player.speed, 0);
+		}
+		if (k == KeyEvent.VK_W) {
+			player2.move(0, -player.speed);
+		}
+		if (k == KeyEvent.VK_S) {
+			player2.move(0, player.speed);
 		}
 	}
 

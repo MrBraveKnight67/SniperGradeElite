@@ -12,16 +12,20 @@ public class Level2State extends GameState {
 
 	private BufferedImage bg;
 	private Player player;
+	private Player player2;
 	private HUD hud;
+	private HUD hud2;
 	private ArrayList<Grade> grades;
 	private ArrayList<Explosion> explosions;
 	private Door door;
 	private int gSpeed = 5;
 	private int pSpeed = 15;
+	private int pSpeed2 = 20;
 
-	public Level2State(GameStateManager gsm, Player player) {
+	public Level2State(GameStateManager gsm, Player player, Player player2) {
 		this.gsm = gsm;
 		this.player = player;
+		this.player2 = player2;
 		init();
 	}
 
@@ -32,9 +36,12 @@ public class Level2State extends GameState {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		player.setPosition(15, 225);
+		player.setPosition(0, 160);
 		player.speed = pSpeed;
+		player2.setPosition(0, 160);
+		player2.speed = pSpeed2;
 		hud = new HUD(player, 15, 15);
+		hud2 = new HUD(player2, 15, 213);
 		populateGrades();
 		explosions = new ArrayList<Explosion>();
 	}
@@ -68,6 +75,7 @@ public class Level2State extends GameState {
 		for (int i = 0; i < grades.size(); i++) {
 			Grade g = grades.get(i);
 			g.update(player);
+			g.update(player2);
 			if (!g.needed) {
 				grades.remove(i);
 				i--;
@@ -95,7 +103,9 @@ public class Level2State extends GameState {
 		}
 
 		player.draw(g);
-		hud.draw(g, gsm);
+		player2.draw(g);
+		hud.draw(g);
+		hud2.draw(g);
 
 		// draw enemies & explosions
 		for (int i = 0; i < grades.size(); i++) {
@@ -108,7 +118,7 @@ public class Level2State extends GameState {
 	}
 
 	public void goToNext() {
-		gsm.setState(GameStateManager.LEVEL3STATE, player);
+		gsm.setState(GameStateManager.LEVEL3STATE, player, player2);
 	}
 
 	public void keyPressed(int k) {
@@ -126,6 +136,18 @@ public class Level2State extends GameState {
 		}
 		if (k == KeyEvent.VK_Q) {
 			System.exit(0);
+		}
+		if (k == KeyEvent.VK_A) {
+			player.move(-player.speed, -player.speed);
+		}
+		if (k == KeyEvent.VK_D) {
+			player.move(player.speed, player.speed);
+		}
+		if (k == KeyEvent.VK_W) {
+			player.move(player.speed, -player.speed);
+		}
+		if (k == KeyEvent.VK_S) {
+			player.move(-player.speed, player.speed);
 		}
 	}
 

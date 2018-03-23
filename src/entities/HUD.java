@@ -1,7 +1,7 @@
 package entities;
 
 import java.awt.*;
-import gameState.GameStateManager;
+import main.Game;
 
 public class HUD {
 
@@ -16,16 +16,20 @@ public class HUD {
 		font = new Font("Arial", Font.PLAIN, 14);
 	}
 
-	public void draw(Graphics2D g, GameStateManager gsm) {
-		String rank = getRank(player.gpa[0], gsm);
+	public void draw(Graphics2D g) {
+		String rank = getRank(player.gpa[0]);
 		g.setFont(font);
 		g.setColor(Color.WHITE);
 		g.drawString("GPA: " + String.format("%.2f", player.gpa[0]), x, y);
 		g.drawString("RANK: " + rank, x, y + 12);
 	}
 
-	public String getRank(double gpa, GameStateManager gsm) {
-		return gsm.getRanks((int) (gpa * 2));
+	public String getRank(double gpa) {
+		int i = (int) (gpa * 3);
+		if (i == 12) {
+			i--;
+		}
+		return Game.ranks[i];
 	}
 
 	public void setPosition(int x, int y) {

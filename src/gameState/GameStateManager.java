@@ -8,7 +8,7 @@ public class GameStateManager {
 	public int currentState;
 	
 	private Player player;
-	private String[] ranks;
+	private Player player2;
 	
 	public static final int NUMGAMESTATES = 5;
 	public static final int MENUSTATE = 0;
@@ -22,8 +22,6 @@ public class GameStateManager {
 		gameStates = new GameState[NUMGAMESTATES];
 		
 		currentState = MENUSTATE;
-		ranks = new String[]{"Jasper", "Faibralin", "Allen", "Warren",
-				"Junghwa", "Bilal", "Shreyas (2nd to Kevin Li)", "Rohith/sub-Kevin Li"};
 		loadState(currentState);
 		
 	}
@@ -34,11 +32,11 @@ public class GameStateManager {
 		if(state == LEVEL1STATE)
 			gameStates[state] = new Level1State(this);
 		if(state == LEVEL2STATE)
-			gameStates[state] = new Level2State(this, player);
+			gameStates[state] = new Level2State(this, player, player2);
 		if(state == LEVEL3STATE)
-			gameStates[state] = new Level3State(this, player);
+			gameStates[state] = new Level3State(this, player, player2);
 		if(state == RESULTSTATE)
-			gameStates[state] = new ResultState(this, player);
+			gameStates[state] = new ResultState(this, player, player2);
 	}
 	
 	private void unloadState(int state) {
@@ -52,10 +50,11 @@ public class GameStateManager {
 		gameStates[currentState].init();
 	}
 
-	public void setState(int state, Player player) {
+	public void setState(int state, Player player, Player player2) {
 		unloadState(currentState);
 		currentState = state;
 		this.player = player;
+		this.player2 = player2;
 		loadState(currentState);
 		gameStates[currentState].init();
 	}
@@ -64,10 +63,6 @@ public class GameStateManager {
 		try {
 			gameStates[currentState].update();
 		} catch(Exception e) {}
-	}
-	
-	public String getRanks(int i) {
-		return ranks[i];
 	}
 	
 	public void draw(java.awt.Graphics2D g) {
