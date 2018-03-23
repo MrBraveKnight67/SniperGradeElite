@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class Level1State extends GameState {
+public class Level3State extends GameState {
 
 	private BufferedImage bg;
 	private Player player;
@@ -17,10 +17,11 @@ public class Level1State extends GameState {
 	private ArrayList<Explosion> explosions;
 	private Door door;
 	private int gSpeed = 5;
-	private int pSpeed = 10;
+	private int pSpeed = 15;
 
-	public Level1State(GameStateManager gsm) {
+	public Level3State(GameStateManager gsm, Player player) {
 		this.gsm = gsm;
+		this.player = player;
 		init();
 	}
 
@@ -31,8 +32,8 @@ public class Level1State extends GameState {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		player = new Player(15, 15, pSpeed);
+		player.setPosition(0, 160);
+		player.speed = pSpeed;
 		hud = new HUD(player, 15, 15);
 		populateGrades();
 		explosions = new ArrayList<Explosion>();
@@ -41,7 +42,7 @@ public class Level1State extends GameState {
 	private void populateGrades() {
 		grades = new ArrayList<Grade>(7);
 		Grade g;
-		int[] values = new int[] { 4, 4, 4, 4, 4, 4, 3 };
+		int[] values = new int[] { 4, 3, 3, 2, 2, 1, 0 };
 		Point[] points = new Point[] { new Point(200, 100), new Point(200, 100), new Point(200, 100),
 				new Point(200, 100), new Point(200, 100), new Point(200, 100), new Point(200, 100) };
 		for (int i = 0; i < points.length; i++) {
@@ -107,21 +108,21 @@ public class Level1State extends GameState {
 	}
 
 	public void goToNext() {
-		gsm.setState(GameStateManager.LEVEL2STATE, player);
+		gsm.setState(GameStateManager.RESULTSTATE, player);
 	}
 
 	public void keyPressed(int k) {
 		if (k == KeyEvent.VK_LEFT) {
-			player.move(-player.speed, 0);
-		}
-		if (k == KeyEvent.VK_RIGHT) {
 			player.move(player.speed, 0);
 		}
+		if (k == KeyEvent.VK_RIGHT) {
+			player.move(-player.speed, 0);
+		}
 		if (k == KeyEvent.VK_UP) {
-			player.move(0, -player.speed);
+			player.move(0, player.speed);
 		}
 		if (k == KeyEvent.VK_DOWN) {
-			player.move(0, player.speed);
+			player.move(0, -player.speed);
 		}
 		if (k == KeyEvent.VK_Q) {
 			System.exit(0);

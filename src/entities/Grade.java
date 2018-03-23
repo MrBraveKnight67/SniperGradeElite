@@ -40,7 +40,6 @@ public class Grade extends Entity {
 			player.gpa[1] += val;
 			player.gpa[2]++;
 			player.gpa[0] = player.gpa[1] / player.gpa[2];
-			System.out.println("" + player.gpa[0]);
 			needed = false;
 		}
 		int xDir = rand.nextInt(10);

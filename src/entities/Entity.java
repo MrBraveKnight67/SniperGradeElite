@@ -22,6 +22,14 @@ public abstract class Entity {
 		move((int) (-posX + x), (int) (-posY + y));
 	}
 
+	public double getX() {
+		return posX;
+	}
+
+	public double getY() {
+		return posY;
+	}
+
 	public void move(int dx, int dy) {
 		if (posX + dx > 320 - radius) {
 			posX = 320 - radius;
@@ -42,6 +50,10 @@ public abstract class Entity {
 
 	public void draw(java.awt.Graphics2D g) {
 		g.drawImage(img, (int) (posX - radius), (int) (posY - radius), null);
+	}
+	
+	public boolean needed() {
+		return needed;
 	}
 
 }

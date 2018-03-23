@@ -12,7 +12,8 @@ public class Player extends Entity {
 		posX = x;
 		posY = y;
 		radius = 15;
-		// gpa[gpa, total grades, number of grades]
+		
+		// gpa[gpa, sum of grades, number of grades]
 		gpa = new double[3];
 		gpa[0] = 0;
 		gpa[1] = 0;

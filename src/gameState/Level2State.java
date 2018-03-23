@@ -12,33 +12,37 @@ public class Level2State extends GameState {
 
 	private BufferedImage bg;
 	private Player player;
+	private HUD hud;
 	private ArrayList<Grade> grades;
+	private ArrayList<Explosion> explosions;
 	private Door door;
 	private int gSpeed = 5;
-	private int pSpeed = 10;
+	private int pSpeed = 15;
 
-	public Level2State(GameStateManager gsm) {
+	public Level2State(GameStateManager gsm, Player player) {
 		this.gsm = gsm;
+		this.player = player;
 		init();
 	}
 
 	public void init() {
 
 		try {
-			bg = ImageIO.read(getClass().getResourceAsStream("/Backgrounds/englishBackground.jpg"));
+			bg = ImageIO.read(getClass().getResourceAsStream("/Backgrounds/frenchBackground.jpg"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		player = new Player(15, 15, pSpeed);
-		populateEnemies();
-
+		player.setPosition(15, 225);
+		player.speed = pSpeed;
+		hud = new HUD(player, 15, 15);
+		populateGrades();
+		explosions = new ArrayList<Explosion>();
 	}
 
-	private void populateEnemies() {
-		grades = new ArrayList<Grade>();
+	private void populateGrades() {
+		grades = new ArrayList<Grade>(7);
 		Grade g;
-		int[] values = new int[] { 4, 4, 4, 4, 4, 4, 3 };
+		int[] values = new int[] { 4, 4, 4, 3, 3, 3, 3 };
 		Point[] points = new Point[] { new Point(200, 100), new Point(200, 100), new Point(200, 100),
 				new Point(200, 100), new Point(200, 100), new Point(200, 100), new Point(200, 100) };
 		for (int i = 0; i < points.length; i++) {
@@ -50,7 +54,8 @@ public class Level2State extends GameState {
 
 	public void update() {
 
-		if (grades.size() <= 3) {
+		// check for door
+		if (grades.size() <= 3 && player.gpa[0] != 0) {
 			if (door == null) {
 				door = new Door(310, 230);
 			} else if (door.updateB(player)) {
@@ -59,22 +64,25 @@ public class Level2State extends GameState {
 			}
 		}
 
-		// update all grades
+		// update all grades & explosions
 		for (int i = 0; i < grades.size(); i++) {
 			Grade g = grades.get(i);
 			g.update(player);
 			if (!g.needed) {
 				grades.remove(i);
 				i--;
-				// explosions.add(new Explosion(g.getx(), g.gety()));
+				explosions.add(new Explosion(g.getX(), g.getY()));
 			}
 		}
-
-		// update explosions
-		/*
-		 * for (int i = 0; i < explosions.size(); i++) { explosions.get(i).update(); if
-		 * (explosions.get(i).shouldRemove()) { explosions.remove(i); i--; } }
-		 */
+		
+		for (int i = 0; i < explosions.size(); i++) {
+			Explosion e = explosions.get(i);
+			e.update();
+			if (!e.needed) {
+				explosions.remove(i);
+				i--;
+			}
+		}
 
 	}
 
@@ -82,47 +90,39 @@ public class Level2State extends GameState {
 
 		// draw bg & door
 		g.drawImage(bg, 0, 0, null);
-		if(door != null) {
+		if (door != null) {
 			door.draw(g);
 		}
 
-		// draw player
 		player.draw(g);
+		hud.draw(g);
 
-		// draw enemies
+		// draw enemies & explosions
 		for (int i = 0; i < grades.size(); i++) {
 			grades.get(i).draw(g);
 		}
-
-		// draw explosions
-		/*
-		 * for (int i = 0; i < explosions.size(); i++) {
-		 * explosions.get(i).setMapPosition((int) tileMap.getx(), (int) tileMap.gety());
-		 * explosions.get(i).draw(g); }
-		 */
-
-		// draw hud
-		// hud.draw(g);
-		
+		for (int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).draw(g);
+		}
 
 	}
 
 	public void goToNext() {
-		//gsm.setState(GameStateManager.LEVEL3STATE);
+		gsm.setState(GameStateManager.LEVEL3STATE, player);
 	}
 
 	public void keyPressed(int k) {
 		if (k == KeyEvent.VK_LEFT) {
-			player.move(-player.speed, 0);
+			player.move(-player.speed, -player.speed);
 		}
 		if (k == KeyEvent.VK_RIGHT) {
-			player.move(player.speed, 0);
+			player.move(player.speed, player.speed);
 		}
 		if (k == KeyEvent.VK_UP) {
-			player.move(0, -player.speed);
+			player.move(player.speed, -player.speed);
 		}
 		if (k == KeyEvent.VK_DOWN) {
-			player.move(0, player.speed);
+			player.move(-player.speed, player.speed);
 		}
 		if (k == KeyEvent.VK_Q) {
 			System.exit(0);
