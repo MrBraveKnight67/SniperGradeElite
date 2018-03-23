@@ -19,15 +19,15 @@ public class Grade extends Entity {
 		needed = true;
 		try {
 			if (val == 4) {
-				img = ImageIO.read(getClass().getResourceAsStream("/gradeA.png"));
+				img = ImageIO.read(getClass().getResourceAsStream("/Grades/gradeA.png"));
 			} else if (val == 3) {
-				img = ImageIO.read(getClass().getResourceAsStream("/gradeB.jpg"));
+				img = ImageIO.read(getClass().getResourceAsStream("/Grades/gradeB.jpg"));
 			} else if (val == 2) {
-				img = ImageIO.read(getClass().getResourceAsStream("/gradeC.png"));
+				img = ImageIO.read(getClass().getResourceAsStream("/Grades/gradeC.png"));
 			} else if (val == 1) {
-				img = ImageIO.read(getClass().getResourceAsStream("/gradeD.png"));
+				img = ImageIO.read(getClass().getResourceAsStream("/Grades/gradeD.png"));
 			} else if (val == 0) {
-				img = ImageIO.read(getClass().getResourceAsStream("/gradeF.png"));
+				img = ImageIO.read(getClass().getResourceAsStream("/Grades/gradeF.png"));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -56,12 +56,5 @@ public class Grade extends Entity {
 		} else {
 			move(0, -rand.nextInt(speed));
 		}
-	}
-
-	public void update(Entity player) {
-	}
-
-	public boolean updateB(Entity player) {
-		return false;
 	}
 }

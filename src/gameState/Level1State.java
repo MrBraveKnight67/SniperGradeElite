@@ -13,7 +13,6 @@ public class Level1State extends GameState {
 	private BufferedImage bg;
 	private Player player;
 	private ArrayList<Grade> grades;
-	private ArrayList<Entity> stations;
 	private Door door;
 	private int gSpeed = 5;
 	private int pSpeed = 10;
@@ -26,19 +25,17 @@ public class Level1State extends GameState {
 	public void init() {
 
 		try {
-			bg = ImageIO.read(getClass().getResourceAsStream("/englishBackground.jpg"));
+			bg = ImageIO.read(getClass().getResourceAsStream("/Backgrounds/englishBackground.jpg"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		player = new Player(15, 15, pSpeed);
-		stations = new ArrayList<Entity>();
-		populateEnemies();
-
+		populateGrades();
 	}
 
-	private void populateEnemies() {
-		grades = new ArrayList<Grade>();
+	private void populateGrades() {
+		grades = new ArrayList<Grade>(7);
 		Grade g;
 		int[] values = new int[] { 4, 3, 2, 1, 0, 3, 2 };
 		Point[] points = new Point[] { new Point(200, 100), new Point(200, 100), new Point(200, 100),
@@ -52,7 +49,7 @@ public class Level1State extends GameState {
 
 	public void update() {
 
-		if (grades.size() == 0) {
+		if (grades.size() <= 3 && player.gpa[0] != 0) {
 			if (door == null) {
 				door = new Door(310, 230);
 			} else if (door.updateB(player)) {
@@ -68,17 +65,7 @@ public class Level1State extends GameState {
 			if (!g.needed) {
 				grades.remove(i);
 				i--;
-				// explosions.add(new Explosion(e.getx(), e.gety()));
-			}
-		}
-
-		// update stations
-		for (int i = 0; i < stations.size(); i++) {
-			Entity s = stations.get(i);
-			s.update(player);
-			if (!s.needed) {
-				stations.remove(i);
-				i--;
+				// explosions.add(new Explosion(g.getx(), g.gety()));
 			}
 		}
 
@@ -92,8 +79,11 @@ public class Level1State extends GameState {
 
 	public void draw(Graphics2D g) {
 
-		// draw bg
+		// draw bg & door
 		g.drawImage(bg, 0, 0, null);
+		if(door != null) {
+			door.draw(g);
+		}
 
 		// draw player
 		player.draw(g);
@@ -101,9 +91,6 @@ public class Level1State extends GameState {
 		// draw enemies
 		for (int i = 0; i < grades.size(); i++) {
 			grades.get(i).draw(g);
-		}
-		for (int i = 0; i < stations.size(); i++) {
-			stations.get(i).draw(g);
 		}
 
 		// draw explosions
@@ -115,6 +102,7 @@ public class Level1State extends GameState {
 
 		// draw hud
 		// hud.draw(g);
+		
 
 	}
 

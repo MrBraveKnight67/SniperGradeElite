@@ -23,7 +23,7 @@ public class MenuState extends GameState {
 		
 		try {
 			
-			bg = ImageIO.read(getClass().getResourceAsStream("/foothillBackground.jpg"));
+			bg = ImageIO.read(getClass().getResourceAsStream("/Backgrounds/foothillBackground.jpg"));
 			
 			titleColor = new Color(128, 0, 0);
 			titleFont = new Font(

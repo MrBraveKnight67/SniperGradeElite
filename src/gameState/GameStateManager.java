@@ -3,7 +3,7 @@ package gameState;
 public class GameStateManager {
 	
 	private GameState[] gameStates;
-	private int currentState;
+	public int currentState;
 	
 	public static final int NUMGAMESTATES = 3;
 	public static final int MENUSTATE = 0;
@@ -35,7 +35,7 @@ public class GameStateManager {
 	public void setState(int state) {
 		unloadState(currentState);
 		currentState = state;
-		System.out.println(""+state);
+		System.out.println("STATE:"+state);
 		loadState(currentState);
 		gameStates[currentState].init();
 	}
@@ -53,7 +53,9 @@ public class GameStateManager {
 	}
 	
 	public void keyPressed(int k) {
-		gameStates[currentState].keyPressed(k);
+		try {
+			gameStates[currentState].keyPressed(k);
+		} catch(Exception e) {}
 	}
 	
 }
