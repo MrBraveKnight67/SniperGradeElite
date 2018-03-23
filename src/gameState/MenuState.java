@@ -46,7 +46,7 @@ public class MenuState extends GameState {
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("Sniper Grade Elite", 50, 70);
+		g.drawString("Sniper Grade Elite", 40, 70);
 
 		// draw menu options
 		g.setFont(font);
@@ -54,7 +54,7 @@ public class MenuState extends GameState {
 			if (i == currentChoice) {
 				g.setColor(Color.GREEN);
 			} else {
-				g.setColor(Color.RED);
+				g.setColor(Color.CYAN);
 			}
 			g.drawString(options[i], 145, 140 + i * 15);
 		}

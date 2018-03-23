@@ -49,20 +49,20 @@ public class ResultState extends GameState {
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("Sniper Grade Elite", 50, 70);
+		g.drawString("Sniper Grade Elite", 50, 40);
 		
 		//draw others
 		g.setFont(font);
-		g.setColor(Color.RED);
-		g.drawString("Your GPA was " + String.format("%.2f", player.gpa[0]), 50, 80);
-		g.drawString("Thus, your rank is...", 50, 100);
+		g.setColor(Color.CYAN);
+		g.drawString("Your GPA was " + String.format("%.2f", player.gpa[0]), 110, 70);
+		g.drawString("Thus, your rank is...", 110, 90);
 		g.setFont(titleFont);
-		g.setColor(Color.GREEN);
-		g.drawString(getRank(player.gpa[0]), 50, 120);
+		g.setColor(Color.ORANGE);
+		g.drawString(getRank(player.gpa[0]), 30, 130);
 		g.setFont(font);
-		g.setColor(Color.RED);
-		g.drawString("Press Q to quit.", 50, 140);
-		g.drawString("(you could do this at any point in the game lol)", 50, 160);
+		g.setColor(Color.CYAN);
+		g.drawString("Press Q to quit.", 120, 160);
+		g.drawString("(you could do this at any point in the game lol)", 35, 180);
 	}
 	
 	private String getRank(double gpa) {
