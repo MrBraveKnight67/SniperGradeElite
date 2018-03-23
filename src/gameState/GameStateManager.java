@@ -4,9 +4,11 @@ import entities.Player;
 
 public class GameStateManager {
 	
-	private Player player;
 	private GameState[] gameStates;
 	public int currentState;
+	
+	private Player player;
+	private String[] ranks;
 	
 	public static final int NUMGAMESTATES = 5;
 	public static final int MENUSTATE = 0;
@@ -20,6 +22,8 @@ public class GameStateManager {
 		gameStates = new GameState[NUMGAMESTATES];
 		
 		currentState = MENUSTATE;
+		ranks = new String[]{"Jasper", "Faibralin", "Allen", "Warren",
+				"Junghwa", "Bilal", "Shreyas (2nd to Kevin Li)", "Rohith/sub-Kevin Li"};
 		loadState(currentState);
 		
 	}
@@ -60,6 +64,10 @@ public class GameStateManager {
 		try {
 			gameStates[currentState].update();
 		} catch(Exception e) {}
+	}
+	
+	public String getRanks(int i) {
+		return ranks[i];
 	}
 	
 	public void draw(java.awt.Graphics2D g) {

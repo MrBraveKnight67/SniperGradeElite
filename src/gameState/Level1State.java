@@ -94,7 +94,7 @@ public class Level1State extends GameState {
 		}
 
 		player.draw(g);
-		hud.draw(g);
+		hud.draw(g, gsm);
 
 		// draw enemies & explosions
 		for (int i = 0; i < grades.size(); i++) {

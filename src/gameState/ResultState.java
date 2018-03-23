@@ -66,24 +66,7 @@ public class ResultState extends GameState {
 	}
 	
 	private String getRank(double gpa) {
-		if (gpa < 1) {
-			return "Faibralin";
-		} else if (gpa < 1.5) {
-			return "Kennyboi (no offense)";
-		} else if (gpa < 2) {
-			return "YaBoiBrian";
-		} else if (gpa < 2.5) {
-			return "Dutta";
-		} else if (gpa < 3) {
-			return "Warren";
-		} else if (gpa < 3.5) {
-			return "Shiladitya";
-		} else if (gpa < 4) {
-			return "Aadi";
-		} else if (gpa == 4) {
-			return "Rohith/sub-Kevin Li";
-		}
-		return "tooLazy fam";
+		return gsm.getRanks((int) (gpa * 2));
 	}
 
 	public void goToNext() {
