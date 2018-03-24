@@ -18,9 +18,9 @@ public class Level1State extends GameState {
 	private ArrayList<Grade> grades;
 	private ArrayList<Explosion> explosions;
 	private Door door;
-	private int gSpeed = 5;
-	private int pSpeed = 10;
-	private int pSpeed2 = 15;
+	private int gSpeed = 3;
+	private int pSpeed = 2;
+	private int pSpeed2 = 3;
 
 	public Level1State(GameStateManager gsm) {
 		this.gsm = gsm;
@@ -79,7 +79,7 @@ public class Level1State extends GameState {
 				explosions.add(new Explosion(g.getX(), g.getY()));
 			}
 		}
-		
+
 		for (int i = 0; i < explosions.size(); i++) {
 			Explosion e = explosions.get(i);
 			e.update();
@@ -88,6 +88,9 @@ public class Level1State extends GameState {
 				i--;
 			}
 		}
+
+		player.update();
+		player2.update();
 
 	}
 
@@ -115,40 +118,46 @@ public class Level1State extends GameState {
 	}
 
 	public void goToNext() {
-		gsm.setState(GameStateManager.LEVEL2STATE, player, player2);
+		player.stopVector("hor");
+		player.stopVector("ver");
+		player2.stopVector("hor");
+		player2.stopVector("ver");
+		gsm.setState(GameStateManager.DISPLAYSTATE, "/Displays/frenchDisplay.jpg", player, player2,
+				GameStateManager.LEVEL2STATE);
 	}
 
 	public void keyPressed(int k) {
 		if (k == KeyEvent.VK_LEFT) {
-			player.move(-player.speed, 0);
-		}
-		if (k == KeyEvent.VK_RIGHT) {
-			player.move(player.speed, 0);
-		}
-		if (k == KeyEvent.VK_UP) {
-			player.move(0, -player.speed);
-		}
-		if (k == KeyEvent.VK_DOWN) {
-			player.move(0, player.speed);
-		}
-		if (k == KeyEvent.VK_Q) {
+			player.setVector("left");
+		} else if (k == KeyEvent.VK_RIGHT) {
+			player.setVector("right");
+		} else if (k == KeyEvent.VK_UP) {
+			player.setVector("up");
+		} else if (k == KeyEvent.VK_DOWN) {
+			player.setVector("down");
+		} else if (k == KeyEvent.VK_Q) {
 			System.exit(0);
-		}
-		if (k == KeyEvent.VK_A) {
-			player2.move(-player.speed, 0);
-		}
-		if (k == KeyEvent.VK_D) {
-			player2.move(player.speed, 0);
-		}
-		if (k == KeyEvent.VK_W) {
-			player2.move(0, -player.speed);
-		}
-		if (k == KeyEvent.VK_S) {
-			player2.move(0, player.speed);
+		} else if (k == KeyEvent.VK_A) {
+			player2.setVector("left");
+		} else if (k == KeyEvent.VK_D) {
+			player2.setVector("right");
+		} else if (k == KeyEvent.VK_W) {
+			player2.setVector("up");
+		} else if (k == KeyEvent.VK_S) {
+			player2.setVector("down");
 		}
 	}
 
 	public void keyReleased(int k) {
+		if (k == KeyEvent.VK_LEFT || k == KeyEvent.VK_RIGHT) {
+			player.stopVector("hor");
+		} else if (k == KeyEvent.VK_UP || k == KeyEvent.VK_DOWN) {
+			player.stopVector("ver");
+		} else if (k == KeyEvent.VK_A || k == KeyEvent.VK_D) {
+			player2.stopVector("hor");
+		} else if (k == KeyEvent.VK_W || k == KeyEvent.VK_S) {
+			player2.stopVector("ver");
+		}
 	}
 
 }

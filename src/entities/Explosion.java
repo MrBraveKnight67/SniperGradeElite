@@ -13,7 +13,7 @@ public class Explosion extends Entity {
 		needed = true;
 		frames = -1;
 		try {
-			img = ImageIO.read(getClass().getResourceAsStream("/Grades/explosion.jpg"));
+			img = ImageIO.read(getClass().getResourceAsStream("/Grades/explosion.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

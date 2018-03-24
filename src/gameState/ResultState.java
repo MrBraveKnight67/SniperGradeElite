@@ -58,7 +58,7 @@ public class ResultState extends GameState {
 		g.setFont(font);
 		g.setColor(Color.CYAN);
 		g.drawString("Your GPA's were " + String.format("%.2f", player.gpa[0]) + " and "
-				+ String.format("%.2f", player2.gpa[0]), 110, 70);
+				+ String.format("%.2f", player2.gpa[0]), 90, 70);
 		g.drawString("Thus, your ranks are...", 110, 90);
 		g.setFont(titleFont);
 		g.setColor(Color.ORANGE);

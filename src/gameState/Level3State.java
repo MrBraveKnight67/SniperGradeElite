@@ -13,14 +13,15 @@ public class Level3State extends GameState {
 	private BufferedImage bg;
 	private Player player;
 	private Player player2;
+	private double[] oldGPA;
 	private HUD hud;
 	private HUD hud2;
 	private ArrayList<Grade> grades;
 	private ArrayList<Explosion> explosions;
 	private Door door;
-	private int gSpeed = 5;
-	private int pSpeed = 15;
-	private int pSpeed2 = 20;
+	private int gSpeed = 4;
+	private int pSpeed = 3;
+	private int pSpeed2 = 4;
 
 	public Level3State(GameStateManager gsm, Player player, Player player2) {
 		this.gsm = gsm;
@@ -40,6 +41,7 @@ public class Level3State extends GameState {
 		player.speed = pSpeed;
 		player2.setPosition(0, 160);
 		player2.speed = pSpeed2;
+		oldGPA = new double[] {player.gpa[0], player2.gpa[1]};
 		hud = new HUD(player, 15, 15);
 		hud2 = new HUD(player2, 15, 213);
 		populateGrades();
@@ -62,7 +64,7 @@ public class Level3State extends GameState {
 	public void update() {
 
 		// check for door
-		if (grades.size() <= 3 && player.gpa[0] != 0) {
+		if (grades.size() <= 3 && (player.gpa[0] != oldGPA[0] || player2.gpa[0] != oldGPA[1])) {
 			if (door == null) {
 				door = new Door(310, 230);
 			} else if (door.updateB(player)) {
@@ -82,7 +84,7 @@ public class Level3State extends GameState {
 				explosions.add(new Explosion(g.getX(), g.getY()));
 			}
 		}
-		
+
 		for (int i = 0; i < explosions.size(); i++) {
 			Explosion e = explosions.get(i);
 			e.update();
@@ -91,6 +93,9 @@ public class Level3State extends GameState {
 				i--;
 			}
 		}
+
+		player.update();
+		player2.update();
 
 	}
 
@@ -118,40 +123,48 @@ public class Level3State extends GameState {
 	}
 
 	public void goToNext() {
-		gsm.setState(GameStateManager.RESULTSTATE, player, player2);
+		player.stopVector("hor");
+		player.stopVector("ver");
+		player2.stopVector("hor");
+		player2.stopVector("ver");
+		gsm.setState(GameStateManager.DISPLAYSTATE, "/Displays/moralsDisplay.jpg", player, player2,
+				GameStateManager.DISPLAYSTATE);
 	}
 
 	public void keyPressed(int k) {
 		if (k == KeyEvent.VK_LEFT) {
-			player.move(player.speed, 0);
-		}
-		if (k == KeyEvent.VK_RIGHT) {
-			player.move(-player.speed, 0);
-		}
-		if (k == KeyEvent.VK_UP) {
-			player.move(0, player.speed);
-		}
-		if (k == KeyEvent.VK_DOWN) {
-			player.move(0, -player.speed);
-		}
-		if (k == KeyEvent.VK_Q) {
+			player.setVector("right");
+		} else if (k == KeyEvent.VK_RIGHT) {
+			player.setVector("left");
+		} else if (k == KeyEvent.VK_UP) {
+			player.setVector("down");
+		} else if (k == KeyEvent.VK_DOWN) {
+			player.setVector("up");
+		} else if (k == KeyEvent.VK_Q) {
 			System.exit(0);
-		}
-		if (k == KeyEvent.VK_A) {
-			player.move(player.speed, 0);
-		}
-		if (k == KeyEvent.VK_D) {
-			player.move(-player.speed, 0);
-		}
-		if (k == KeyEvent.VK_W) {
-			player.move(0, player.speed);
-		}
-		if (k == KeyEvent.VK_S) {
-			player.move(0, -player.speed);
+		} else if (k == KeyEvent.VK_A) {
+			player2.setVector("right");
+		} else if (k == KeyEvent.VK_D) {
+			player2.setVector("left");
+		} else if (k == KeyEvent.VK_W) {
+			player2.setVector("down");
+		} else if (k == KeyEvent.VK_S) {
+			player2.setVector("up");
+		} else if (k == KeyEvent.VK_Q) {
+			System.exit(0);
 		}
 	}
 
 	public void keyReleased(int k) {
+		if (k == KeyEvent.VK_LEFT || k == KeyEvent.VK_RIGHT) {
+			player.stopVector("hor");
+		} else if (k == KeyEvent.VK_UP || k == KeyEvent.VK_DOWN) {
+			player.stopVector("ver");
+		} else if (k == KeyEvent.VK_A || k == KeyEvent.VK_D) {
+			player2.stopVector("hor");
+		} else if (k == KeyEvent.VK_W || k == KeyEvent.VK_S) {
+			player2.stopVector("ver");
+		}
 	}
 
 }

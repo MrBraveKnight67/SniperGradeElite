@@ -19,7 +19,7 @@ public class HUD {
 	public void draw(Graphics2D g) {
 		String rank = getRank(player.gpa[0]);
 		g.setFont(font);
-		g.setColor(Color.WHITE);
+		g.setColor(Color.RED);
 		g.drawString("GPA: " + String.format("%.2f", player.gpa[0]), x, y);
 		g.drawString("RANK: " + rank, x, y + 12);
 	}

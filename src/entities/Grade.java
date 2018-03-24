@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 
 public class Grade extends Entity {
 	int val;
-	int speed;
 	Random rand;
 
 	public Grade(int x, int y, int val, int speed) {
@@ -16,6 +15,7 @@ public class Grade extends Entity {
 		radius = 10;
 		this.val = val;
 		this.speed = speed;
+		
 		needed = true;
 		try {
 			if (val == 4) {
@@ -45,15 +45,17 @@ public class Grade extends Entity {
 		int xDir = rand.nextInt(10);
 		int yDir = rand.nextInt(10);
 		if (xDir > 4) {
-			move(rand.nextInt(speed), 0);
+			this.setVector("right");
 		} else {
-			move(-rand.nextInt(speed), 0);
+			this.setVector("left");
 		}
-
 		if (yDir > 4) {
-			move(0, rand.nextInt(speed));
+			this.setVector("up");
 		} else {
-			move(0, -rand.nextInt(speed));
+			this.setVector("down");
 		}
+			this.move(dx, dy);
+		this.stopVector("hor");
+		this.stopVector("ver");
 	}
 }

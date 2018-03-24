@@ -6,12 +6,13 @@ import javax.imageio.ImageIO;
 
 public class Player extends Entity {
 	public double[] gpa;
-	public int speed;
 	private int pNum;
 
 	public Player(int x, int y, int speed, int playerNumber) {
 		posX = x;
 		posY = y;
+		dy = 0;
+		dx = 0;
 		radius = 15;
 		pNum = playerNumber;
 
@@ -24,9 +25,9 @@ public class Player extends Entity {
 		needed = true;
 		try {
 			if (pNum == 1) {
-				img = ImageIO.read(getClass().getResourceAsStream("/player.png"));
-			}else if (pNum == 2) {
-				img = ImageIO.read(getClass().getResourceAsStream("/player2.jpg"));
+				img = ImageIO.read(getClass().getResourceAsStream("/player1.png"));
+			} else if (pNum == 2) {
+				img = ImageIO.read(getClass().getResourceAsStream("/player2.png"));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

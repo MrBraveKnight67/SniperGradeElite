@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage;
 public abstract class Entity {
 	public double posX;
 	public double posY;
+	public double dy;
+	public double dx;
+	public int speed;
 	public int radius;
 	protected BufferedImage img;
 	public boolean needed;
@@ -30,7 +33,7 @@ public abstract class Entity {
 		return posY;
 	}
 
-	public void move(int dx, int dy) {
+	public void move(double dx, double dy) {
 		if (posX + dx > 320 - radius) {
 			posX = 320 - radius;
 		} else if (posX + dx < radius) {
@@ -45,6 +48,30 @@ public abstract class Entity {
 			posY = radius;
 		} else {
 			posY += dy;
+		}
+	}
+
+	public void update() {
+		this.move(dx, dy);
+	}
+
+	public void setVector(String direction) {
+		if (direction == "left") {
+			dx = -speed;
+		} else if (direction == "right") {
+			dx = speed;
+		} else if (direction == "up") {
+			dy = -speed;
+		} else if (direction == "down") {
+			dy = speed;
+		}
+	}
+	
+	public void stopVector(String axis) {
+		if(axis == "hor") {
+			dx = 0;
+		}else if(axis == "ver") {
+			dy = 0;
 		}
 	}
 

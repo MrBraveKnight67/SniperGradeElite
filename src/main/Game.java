@@ -14,7 +14,7 @@ public class Game {
 		window.pack();
 		window.setVisible(true);
 		ranks = new String[]{"Jasper", "Alex Li", "Faibralin", "Kenneth", "Allen",
-				"Warren", "Alexander", "Karthik", "Junghwa", "Bilal",
+				"Measely Warren", "Alexander", "Karthik", "Junghwa", "Bilal",
 				"Shreyas (2nd to Kevin Li)", "Rohith/sub-Kevin Li"};
 		
 	}

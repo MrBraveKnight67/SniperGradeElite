@@ -74,7 +74,7 @@ public class MenuState extends GameState {
 	}
 
 	public void goToNext() {
-		gsm.setState(GameStateManager.LEVEL1STATE);
+		gsm.setState(GameStateManager.DISPLAYSTATE, "/Displays/compSciDisplay.jpg", null, null, GameStateManager.LEVEL1STATE);
 	}
 
 	public void keyPressed(int k) {
