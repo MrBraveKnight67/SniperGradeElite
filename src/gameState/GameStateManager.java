@@ -26,7 +26,7 @@ public class GameStateManager {
 		
 		currentState = DISPLAYSTATE;
 		nextState = MENUSTATE;
-		display = "/Displays/controlsScreen.jpg";
+		display = "/Displays/controlsDisplay1.5.jpg";
 		loadState(currentState);
 		
 	}

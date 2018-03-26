@@ -52,7 +52,7 @@ public class ResultState extends GameState {
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("Sniper Grade Elite", 50, 40);
+		g.drawString("Super GPA Bros", 55, 40);
 		
 		//draw others
 		g.setFont(font);
@@ -79,11 +79,15 @@ public class ResultState extends GameState {
 	}
 
 	public void goToNext() {
+		gsm.setState(GameStateManager.DISPLAYSTATE, "/Displays/controlsDisplay1.5.jpg", player, player2,
+				GameStateManager.MENUSTATE);
 	}
 
 	public void keyPressed(int k) {
 		if (k == KeyEvent.VK_Q) {
 			System.exit(0);
+		} else if (k == KeyEvent.VK_SPACE) {
+			goToNext();
 		}
 	}
 
